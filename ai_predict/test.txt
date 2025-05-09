@@ -1,0 +1,1 @@
+gst-launch-1.0 -v rtspsrc location="rtsp://admin:53373957@192.168.144.108:554/cam/realmonitor?channel=1&subtype=2" latency=0 ! rtph264depay ! h264parse ! nvv4l2decoder ! nvvidconv ! fakesink
