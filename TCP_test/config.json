@@ -1,0 +1,9 @@
+{
+    "tcp_host": "192.168.144.200",
+    "tcp_port": 2000,
+    "auto_rtsp": "rtsp://admin:53373957@192.168.144.108:554/cam/realmonitor?channel=1&subtype=2",
+    "auto_connect": true,
+    "buffer_size": 4096,
+    "reconnect_attempts": 3,
+    "reconnect_delay": 5
+}
