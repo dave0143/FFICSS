@@ -1,0 +1,73 @@
+1.在 Jetson Orin 上安裝依賴
+sudo apt update
+sudo apt install -y build-essential pkg-config \
+     libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+     libgstrtspserver-1.0-dev gstreamer1.0-plugins-good \
+     gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+     gstreamer1.0-libav libgstreamer-plugins-bad1.0-dev \
+     libjson-c-dev
+
+2.編譯程式
+make check-deps  # 檢查所有依賴
+make release     # 正式版本
+
+3.運行
+./rtsp_server
+
+
+4.系統服務安裝
+     # 建立服務檔案
+     sudo nano /etc/systemd/system/rtsp-server.service
+
+     # 服務內容:
+     [Unit]
+     Description=NVIDIA Orin RTSP Streaming Server
+     After=network.target
+
+     [Service]
+     Type=RTSPServer
+     User=jetson
+     WorkingDirectory=/home/jetson/rtsp_server
+     ExecStart=/home/jetson/rtsp_server/rtsp_server
+     Restart=always
+     RestartSec=5
+
+     [Install]
+     WantedBy=multi-user.target
+
+     # 啟用服務
+     sudo systemctl enable rtsp-server
+     sudo systemctl start rtsp-server
+     sudo systemctl status rtsp-server
+
+5.防火牆
+     # 完整設置 (首次使用)
+     sudo ./rtsp-firewall.sh setup
+
+     # 顯示當前規則
+     sudo ./rtsp-firewall.sh show
+
+     # 測試配置
+     sudo ./rtsp-firewall.sh test
+
+     # 清除所有規則 (緊急情況)
+     sudo ./rtsp-firewall.sh clear
+
+     # 重新載入已保存的規則
+     sudo ./rtsp-firewall.sh load
+
+
+
+2.建立結構
+mkdir orin_rtsp_server
+cd orin_rtsp_server
+touch rtsp_server.c config_parser.c config_parser.h Makefile rtsp_server.conf
+
+3.建立rtsp_server.conf
+
+4. 配置文件解析config_parser.h
+5. config_parser.c
+6. rtsp_server.c
+7. Make file
+8. 編譯(執行make)
+9. Run(./rtsp_server)
