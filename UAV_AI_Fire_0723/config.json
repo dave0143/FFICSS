@@ -1,0 +1,157 @@
+{
+  "mqtt": {
+    "broker": "192.168.144.100",
+    "port": 1883,
+    "keepalive": 60,
+    "qos": 1,
+    "topics": {
+      "read1": "ai_fire/target",
+      "read2": "uav/info",
+      "read3": "ai/mission",
+      "write": "uav/command",
+      "write_target": "ai/target"
+    },
+    "username": null,
+    "password": null,
+    "client_id": "uav_system_controller",
+    "max_reconnect_attempts": 10,
+    "reconnect_delay": 2,
+    "max_reconnect_delay": 60,
+    "exponential_backoff": true,
+    "enable_message_queue": true,
+    "max_queue_size": 1000,
+    "queue_timeout": 5,
+    "status_topic": "system/status",
+    "will_topic": "system/will",
+    "will_payload": {
+      "status": "offline",
+      "reason": "unexpected_disconnect",
+      "timestamp": 0
+    },
+    "clean_session": true,
+    "use_tls": false,
+    "tls_ca_cert": null,
+    "tls_cert_file": null,
+    "tls_key_file": null,
+    "tls_insecure": false,
+    "message_filters": {
+      "ai_fire/target": {
+        "required_fields": ["status"],
+        "validation": true
+      },
+      "uav/info": {
+        "required_fields": ["lat", "lon", "alt"],
+        "validation": true
+      }
+    },
+    "batch_subscribe": true,
+    "subscribe_on_connect": true,
+    "enable_statistics": true,
+    "statistics_interval": 30,
+    "statistics_topic": "system/mqtt_stats"
+  },
+  
+  "device": {
+    "gpio_pin": 21,
+    "active_duration": 10
+  },
+  
+  "log": {
+    "sqlite_db": "system_log.db",
+    "retention_days": 10,
+    "mqtt_log_level": "info"
+  },
+  
+  "flow_timeout": {
+    "000": 0,
+    "001": 30,
+    "002": 40,
+    "003": 30,
+    "004": 0,
+    "005": 60,
+    "006": 30,
+    "007": 90
+  },
+  
+  "gimbal_search": {
+    "yaw_min": -90,
+    "yaw_max": 90,
+    "yaw_step": 10,
+    "pitch_min": 0,
+    "pitch_max": -90,
+    "pitch_step": 10,
+    "sleep_between_steps": 1,
+    "descent_height": 2,
+    "min_height": 4
+  },
+  "gimbal_control": {
+    "pid_yaw": {"kp": 0.05, "ki": 0.001, "kd": 0.01},
+    "pid_pitch": {"kp": -0.05, "ki": -0.001, "kd": -0.01},
+    "control_loop": {"max_speed_dps": 15.0}
+  },
+  "gimbal_tcp": {
+    "port": 2000,
+    "ip": "192.168.144.200",
+    "reconnect_interval": 5
+  },
+  
+  "mission": {
+    "hover_duration": 10
+  },
+  "spray_strategy": {
+    "enabled": true,
+    "enable_aux_correction": true,
+    "KIM_position": { 
+      "x": 960,
+      "y": 540,
+      "width": 30,
+      "height": 30,
+      "image_width": 1920,
+      "image_height": 1080,
+      "fov": 60    
+    },
+    "target_angle": 5,
+    "flight_speed": 0.1,
+    "Suspension_time": 10
+  },
+  "KIM_mapping": {
+    "enabled": true,
+    "mapping_interval": 60,
+    "mapping_height": 100,
+    "mapping_speed": 5
+  },
+  "system_monitoring": {
+    "health_check_interval": 5,
+    "mqtt_health_check": true,
+    "publish_system_status": true,
+    "system_status_interval": 10,
+    "system_status_topic": "system/health"
+  },
+  "error_handling": {
+    "max_mqtt_errors": 5,
+    "mqtt_error_cooldown": 30,
+    "auto_recovery": true,
+    "error_notification_topic": "system/errors"
+  },
+  "fine_navi": {
+    "waypoint_num": 5
+  },
+  "system": {
+    "timesync": false
+  },
+  "time_sync": {
+    "tolerance_seconds": 2,
+    "sync_hour": 0,
+    "sync_minute": 0
+  },
+  "debug_config": {
+    "step_000": false,
+    "step_001": false,
+    "step_002": false,
+    "step_003": false,
+    "step_004": false,
+    "step_005": false,
+    "step_006": false,
+    "step_007": false
+  }
+}
